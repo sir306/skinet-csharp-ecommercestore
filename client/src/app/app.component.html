@@ -1,7 +1,10 @@
 <app-nav-bar></app-nav-bar>
-<h1 class="text-center">Welcome to {{title}}</h1>
-<div class="badge bg-primary text-wrap">
 
-  This text should wrap.
+<div class="container" style="margin-top: 140px">
+  <h1 class="text-center">Welcome to {{title}}</h1>
+  <ul>
+    <li class="list-unstyled" *ngFor="let product of products">
+      {{product.name}}
+    </li>
+  </ul>
 </div>
-<i class="fa fa-home" aria-hidden="true"></i>
