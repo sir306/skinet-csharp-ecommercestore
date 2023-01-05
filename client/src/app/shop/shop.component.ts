@@ -13,6 +13,14 @@ export class ShopComponent implements OnInit {
   products: IProduct[];
   brands: IBrand[];
   productTypes: IProductType[];
+  brandIdSelected: number = 0;
+  typeIdSelected: number = 0;
+  sortSelected = 'name';
+  sortOptions = [
+    { name: 'Alphabetical', value: 'name' },
+    { name: 'Price: Low to High', value: 'priceAsc' },
+    { name: 'Price: High to Low', value: 'priceDesc' },
+  ];
 
   constructor(private shopService: ShopService) {}
 
@@ -23,19 +31,21 @@ export class ShopComponent implements OnInit {
   }
 
   getProducts() {
-    this.shopService.getProducts().subscribe({
-      next: (response) => {
-        this.products = response.data;
-      },
-      error: (e) => console.log(e),
-      complete: () => console.info('Products retrieved'),
-    });
+    this.shopService
+      .getProducts(this.brandIdSelected, this.typeIdSelected, this.sortSelected)
+      .subscribe({
+        next: (response) => {
+          this.products = response.data;
+        },
+        error: (e) => console.log(e),
+        complete: () => console.info('Products retrieved'),
+      });
   }
 
   getBrands() {
     this.shopService.getBrands().subscribe({
       next: (response) => {
-        this.brands = response;
+        this.brands = [{ id: 0, name: 'All' }, ...response];
       },
       error: (e) => console.log(e),
       complete: () => console.info('Brands retrieved'),
@@ -45,10 +55,26 @@ export class ShopComponent implements OnInit {
   getProductTypes() {
     this.shopService.getProductTypes().subscribe({
       next: (response) => {
-        this.productTypes = response;
+        this.productTypes = [{ id: 0, name: 'All' }, ...response];
       },
       error: (e) => console.log(e),
       complete: () => console.info('Types retrieved'),
     });
+  }
+
+  onBrandSelected(brandId: number) {
+    this.brandIdSelected = brandId;
+    this.getProducts();
+  }
+
+  onTypeSelected(typeId: number) {
+    this.typeIdSelected = typeId;
+    this.getProducts();
+  }
+
+  onSortSelected(sort:string)
+  {
+    this.sortSelected = sort;
+    this.getProducts();
   }
 }
