@@ -19,7 +19,7 @@
           class="list-group-item"
           aria-current="true"
           *ngFor="let brand of brands"
-          [class.active]="brand.id === this.brandIdSelected"
+          [class.active]="brand.id === this.shopParams.brandId"
           [value]="brand.id"
           (click)="onBrandSelected(brand.id)"
         >
@@ -32,7 +32,7 @@
           class="list-group-item"
           aria-current="true"
           *ngFor="let productType of productTypes"
-          [class.active]="productType.id === this.typeIdSelected"
+          [class.active]="productType.id === this.shopParams.typeId"
           [value]="productType.id"
           (click)="onTypeSelected(productType.id)"
         >
@@ -64,6 +64,19 @@
         <div class="col" *ngFor="let productItem of products">
           <app-product-item [product]="productItem"></app-product-item>
         </div>
+      </div>
+      <div class="d-flex justify-content-center my-2">
+        <pagination
+          [boundaryLinks]="true"
+          [totalItems]="this.totalCount"
+          (pageChanged)="onPageChanged($event)"
+          [itemsPerPage]="this.shopParams.pageSize"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+        >
+        </pagination>
       </div>
     </section>
   </div>
