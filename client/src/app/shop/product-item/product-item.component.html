@@ -5,7 +5,7 @@
     class="img-fluid bg-info"
   />
   <div class="card-body">
-    <a [routerLink]="['/shop/{{product.id}}']">
+    <a routerLink="/shop/{{ product.id }}">
       <h6 class="text-uppercase">{{ product.name }}</h6>
     </a>
     <span class="mb-2">{{ product.price | currency }}</span>
@@ -16,7 +16,7 @@
         class="btn btn-outline-secondary fa fa-shopping-cart me-2"
       ></button>
       <button
-        [routerLink]="['/shop/{{product.id}}']"
+        routerLink="/shop/{{ product.id }}"
         type="button"
         class="btn btn-outline-secondary"
       >
