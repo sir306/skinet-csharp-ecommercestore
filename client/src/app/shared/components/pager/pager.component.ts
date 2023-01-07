@@ -12,9 +12,7 @@ export class PagerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
 
   onPagerChange(event: any) {
     this.pageChanged.emit(event.page);
